@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import React, { Component } from "react";
+import data from "./db/robots";
+const robotData = data;
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    cardColors: "",
+    searchVal: "",
+  };
+
+  changeColor = (e) => {
+    this.setState({
+      cardColors: e.target.value,
+    });
+  };
+
+  handleSearch = (e) => {
+    this.setState({
+      searchVal: e.target.value,
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <Header
+          changeColor={this.changeColor}
+          handleSearch={this.handleSearch}
+        />
+        <Body
+          robots={robotData}
+          color={this.state.cardColors}
+          search={this.state.searchVal}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
