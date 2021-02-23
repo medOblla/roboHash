@@ -2,14 +2,30 @@ import "./App.css";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import React, { Component } from "react";
-import data from "./db/robots";
-const robotData = data;
+import axios from "axios";
 
 class App extends Component {
-  state = {
-    cardColors: "",
-    searchVal: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      robots: [],
+      cardColors: "",
+      searchVal: "",
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:5000/mongoRobots")
+      .then((response) => {
+        this.setState({
+          robots: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   changeColor = (e) => {
     this.setState({
@@ -31,7 +47,7 @@ class App extends Component {
           handleSearch={this.handleSearch}
         />
         <Body
-          robots={robotData}
+          robots={this.state.robots}
           color={this.state.cardColors}
           search={this.state.searchVal}
         />

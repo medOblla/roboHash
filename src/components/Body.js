@@ -14,7 +14,7 @@ class Body extends Component {
                   .includes(this.props.search.toLowerCase())
               )
               .map((data, key) => (
-                <Card robot={data} color={this.props.color} key={data.id} />
+                <Card robot={data} color={this.props.color} key={data._id} />
               ))}
           </div>
         </div>
@@ -24,7 +24,9 @@ class Body extends Component {
       <div className="container">
         <div className="card-deck mb-3 text-center">
           {this.props.robots.map((data, key) => {
-            return <Card robot={data} color={this.props.color} key={data.id} />;
+            return (
+              <Card robot={data} color={this.props.color} key={data._id} />
+            );
           })}
         </div>
       </div>
